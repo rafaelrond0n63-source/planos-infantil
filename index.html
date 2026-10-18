@@ -130,6 +130,19 @@ section{padding:48px 0}
 .garantia .selo-g{width:92px;height:92px;border-radius:50%;background:var(--verde);color:#fff;display:grid;place-items:center;margin:0 auto 12px;font-family:Fredoka;font-size:15px;line-height:1.1;font-weight:700}
 .garantia .selo-g b{font-size:30px;display:block}
 
+/* garantia junto aos botões */
+.gar-btn{display:flex;align-items:center;gap:6px;justify-content:center;font-size:13px;color:#2B8A3E;font-weight:600;margin-top:10px}
+.gar-faixa{display:flex;gap:14px;align-items:center;background:#EBFBEE;border:2px solid var(--verde);border-radius:16px;padding:14px 16px;margin-top:18px;text-align:left}
+.gar-faixa .selo-p{flex:0 0 58px;height:58px;border-radius:50%;background:var(--verde);color:#fff;display:grid;place-items:center;font-family:Fredoka;font-size:11px;line-height:1;font-weight:700;text-align:center}
+.gar-faixa .selo-p b{font-size:20px;display:block}
+.gar-faixa p{font-size:14px;margin:0;color:var(--tinta)}
+
+/* depoimentos (seção oculta até ter prints reais) */
+#depoimentos[hidden]{display:none}
+.depo-grade{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 2px 14px}
+.depo-grade figure{flex:0 0 78%;max-width:320px;scroll-snap-align:center;margin:0}
+.depo-grade img{border-radius:14px;border:1px solid var(--linha);box-shadow:0 6px 18px rgba(31,42,68,.08)}
+
 /* FAQ */
 .faq details{background:var(--branco);border:1px solid var(--linha);border-radius:12px;margin-bottom:10px}
 .faq summary{cursor:pointer;list-style:none;padding:15px 44px 15px 16px;font-weight:600;color:var(--tinta);position:relative}
@@ -341,6 +354,7 @@ footer{text-align:center;font-size:12px;color:var(--suave);padding:26px 18px 90p
           <li class="nao">4 bônus</li>
         </ul>
         <a class="btn contorno js-essencial" href="https://pay.wiapy.com/SEG3eH0oJiFU" id="btn-essencial">QUERO O ESSENCIAL</a>
+        <p class="gar-btn">🛡️ 7 dias de garantia · 100% do valor de volta</p>
       </div>
       <div class="plano destaque">
         <span class="selo">MAIS COMPLETO</span>
@@ -360,20 +374,26 @@ footer{text-align:center;font-size:12px;color:var(--suave);padding:26px 18px 90p
           <li>Garantia de 7 dias</li>
         </ul>
         <a class="btn" href="https://pay.wiapy.com/-cGL6osA77KN" id="btn-completo">QUERO O KIT COMPLETO</a>
+        <p class="gar-btn">🛡️ 7 dias de garantia · 100% do valor de volta</p>
       </div>
+    </div>
+    <div class="gar-faixa">
+      <div class="selo-p"><div><b>7</b>DIAS</div></div>
+      <p><b>Risco zero para você.</b> Baixe, use os planos com a sua turma e, se não gostar, peça o reembolso em até 7 dias. Devolvemos 100% do valor, sem perguntas.</p>
     </div>
     <div class="confianca"><span>🔒 Compra segura</span><span>⚡ Acesso imediato</span><span>✅ Garantia de 7 dias</span></div>
   </div>
 </section>
 
-<!-- DEPOIMENTOS: adicionar SOMENTE depoimentos reais de clientes (com autorização).
-<section class="sec-branca">
+<!-- DEPOIMENTOS: só aparece quando houver prints REAIS de clientes (com autorização).
+     Para ativar: coloque as imagens em assets/depoimentos/ e liste os nomes em DEPOIMENTOS no script do fim da página. -->
+<section class="sec-branca" id="depoimentos" hidden>
   <div class="wrap">
     <h2 class="titulo">O que as professoras dizem</h2>
-    ...
+    <p class="sub">Mensagens reais de quem já usa o material.</p>
+    <div class="depo-grade" id="depo-grade"></div>
   </div>
 </section>
--->
 
 <!-- GARANTIA -->
 <section class="sec-branca">
@@ -418,6 +438,20 @@ footer{text-align:center;font-size:12px;color:var(--suave);padding:26px 18px 90p
 
 <div class="sticky" id="sticky"><a class="btn" href="#planos">QUERO MEUS 300 PLANOS · R$10</a></div>
 
+<!-- POPUP DE SAÍDA: oferta real (amostra grátis + garantia), aparece 1 vez por visita -->
+<div class="overlay" id="overlay-saida" role="dialog" aria-modal="true" aria-labelledby="saida-titulo">
+  <div class="modal">
+    <span class="tag">ANTES DE IR</span>
+    <h3 id="saida-titulo">Leve um plano completo grátis</h3>
+    <p class="mini">Baixe um dos planos do material, do jeitinho que ele é, e teste com a sua turma.</p>
+    <img src="assets/plano-bebes.webp" width="720" height="876" alt="Amostra: plano Cesto de tesouros" style="max-width:170px;margin:0 auto 14px;border-radius:8px;border:1px solid var(--linha)">
+    <a class="btn" href="assets/amostra-plano-gratis.pdf" download id="btn-amostra">BAIXAR PLANO GRÁTIS (PDF)</a>
+    <div class="obs">Gostou? Os 300 planos saem por <b>R$10</b>, com <b>7 dias de garantia</b>.</div>
+    <a class="btn contorno" href="#planos" id="saida-ver-kits">VER OS KITS</a>
+    <button class="nao-obg" id="fechar-saida" type="button">Fechar</button>
+  </div>
+</div>
+
 <!-- POPUP UPSELL: aparece ao clicar no Kit Essencial -->
 <div class="overlay" id="overlay-upsell" role="dialog" aria-modal="true" aria-labelledby="up-titulo">
   <div class="modal">
@@ -451,6 +485,45 @@ footer{text-align:center;font-size:12px;color:var(--suave);padding:26px 18px 90p
   });
   overlay.addEventListener('click', function(e){ if(e.target === overlay) overlay.classList.remove('on'); });
   document.addEventListener('keydown', function(e){ if(e.key === 'Escape') overlay.classList.remove('on'); });
+
+  // Depoimentos: liste aqui SOMENTE prints reais, ex.: ['depo1.webp','depo2.webp']
+  var DEPOIMENTOS = [];
+  if (DEPOIMENTOS.length) {
+    var grade = document.getElementById('depo-grade');
+    DEPOIMENTOS.forEach(function(f, i){
+      grade.insertAdjacentHTML('beforeend', '<figure><img src="assets/depoimentos/' + f + '" loading="lazy" alt="Depoimento de cliente ' + (i + 1) + '"></figure>');
+    });
+    document.getElementById('depoimentos').hidden = false;
+  }
+
+  // Popup de saída: computador = mouse sai pelo topo; celular = rolou de volta rápido para o topo após ver boa parte da página.
+  var saida = document.getElementById('overlay-saida');
+  var jaMostrou = false, foiAoCheckout = false;
+  try { jaMostrou = sessionStorage.getItem('saida') === '1'; } catch(e) {}
+  document.querySelectorAll('a[href*="pay.wiapy.com"]').forEach(function(a){ a.addEventListener('click', function(){ foiAoCheckout = true; }); });
+  function abreSaida(){
+    if (jaMostrou || foiAoCheckout || overlay.classList.contains('on')) return;
+    jaMostrou = true;
+    try { sessionStorage.setItem('saida', '1'); } catch(e) {}
+    saida.classList.add('on');
+  }
+  function fechaSaida(){ saida.classList.remove('on'); }
+  var inicio = Date.now();
+  document.addEventListener('mouseout', function(e){
+    if (!e.relatedTarget && e.clientY <= 0 && Date.now() - inicio > 8000) abreSaida();
+  });
+  var maxRolado = 0, ultY = scrollY, ultT = Date.now();
+  addEventListener('scroll', function(){
+    var y = scrollY, t = Date.now();
+    maxRolado = Math.max(maxRolado, y);
+    var velocidade = (ultY - y) / Math.max(t - ultT, 1); // px/ms subindo
+    if (innerWidth < 700 && maxRolado > innerHeight * 3 && velocidade > 2.5 && y < maxRolado * 0.5) abreSaida();
+    ultY = y; ultT = t;
+  }, {passive:true});
+  document.getElementById('fechar-saida').addEventListener('click', fechaSaida);
+  document.getElementById('saida-ver-kits').addEventListener('click', fechaSaida);
+  saida.addEventListener('click', function(e){ if(e.target === saida) fechaSaida(); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') fechaSaida(); });
 
   // Barra fixa no celular: aparece depois do hero e some na área de preços/final
   var sticky = document.getElementById('sticky');
